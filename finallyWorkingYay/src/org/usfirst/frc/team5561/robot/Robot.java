@@ -7,12 +7,15 @@
 
 package org.usfirst.frc.team5561.robot;
 
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team5561.robot.commands.ExampleCommand;
+import org.usfirst.frc.team5561.robot.commands.autoForward;
+import org.usfirst.frc.team5561.robot.commands.driveStraight;
 import org.usfirst.frc.team5561.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team5561.robot.subsystems.driveTrain;
 
@@ -24,6 +27,7 @@ import org.usfirst.frc.team5561.robot.subsystems.driveTrain;
  * project.
  */
 public class Robot extends TimedRobot {
+	
 	public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
 	public static driveTrain drive_subsystem = new driveTrain();
 	public static OI m_oi;
@@ -39,7 +43,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
-		m_chooser.addDefault("Default Auto", new ExampleCommand());
+		m_chooser.addDefault("Default Auto", new driveStraight());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
