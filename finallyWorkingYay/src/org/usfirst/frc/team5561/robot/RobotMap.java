@@ -15,10 +15,10 @@ package org.usfirst.frc.team5561.robot;
  */
 public class RobotMap 
 	{
-		public static int backLeft = 6;
-		public static int frontLeft = 5;
-		public static int frontRight = 7;
-		public static int backRight = 8;
-		public static int middleRight = 10;
-		public static int middleLeft = 11;
+		public static int backLeft = 1;
+		public static int frontLeft = 2;
+		public static int frontRight = 3;
+		public static int backRight = 4;
+	//	public static int middleRight = 10;
+	//	public static int middleLeft = 11;
 	}

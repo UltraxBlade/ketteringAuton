@@ -21,28 +21,34 @@ import edu.wpi.first.wpilibj.VictorSP;
 public class driveTrain extends Subsystem 
 	{
 		public AHRS gyro = new AHRS(SPI.Port.kMXP);
+	
+		public double intialPosL = 0;
+		public double intialPosR = 0;
 		
-		private VictorSP frontLeft = new VictorSP(RobotMap.frontLeft);
-		private VictorSP frontRight = new VictorSP(RobotMap.frontRight);
-		private VictorSP backLeft = new VictorSP(RobotMap.backLeft);
-		private VictorSP backRight = new VictorSP(RobotMap.backRight);
-		private VictorSP middleLeft  = new VictorSP(RobotMap.middleLeft);
-		private VictorSP middleRight = new VictorSP(RobotMap.middleRight);
+		private WPI_TalonSRX frontLeft = new WPI_TalonSRX(RobotMap.frontLeft);
+		private WPI_TalonSRX frontRight = new WPI_TalonSRX(RobotMap.frontRight);
+		private WPI_TalonSRX backLeft = new WPI_TalonSRX(RobotMap.backLeft);
+		private WPI_TalonSRX backRight = new WPI_TalonSRX(RobotMap.backRight);
+	//	private WPI_TalonSRX middleLeft  = new WPI_TalonSRX(RobotMap.middleLeft);
+	//	private WPI_TalonSRX middleRight = new WPI_TalonSRX(RobotMap.middleRight);
 		
-		private SpeedControllerGroup left = new SpeedControllerGroup(frontLeft, middleLeft, backLeft);
-		private SpeedControllerGroup right = new SpeedControllerGroup(frontRight, middleRight, backRight);
+		private SpeedControllerGroup left = new SpeedControllerGroup(frontLeft, backLeft);
+		private SpeedControllerGroup right = new SpeedControllerGroup(frontRight, backRight);
 		
 		public Encoder leftEncoder = new Encoder(2,3);
 		public Encoder rightEncoder = new Encoder(4,5);
+		
 	
 		private DifferentialDrive jankDrive=new DifferentialDrive(left,right);
+		
+		public static final double pulsesToInches = (6*(Math.PI))/4096;
 		
 	    public void initDefaultCommand() 
 	    	{
 	    		// Set the default command for a subsystem here.
 	        	setDefaultCommand(new driveWithJoystick());
-	        	leftEncoder.setDistancePerPulse(1.0/38.4);
-	        	rightEncoder.setDistancePerPulse(1.0/38.4);
+	        	//leftEncoder.setDistancePerPulse(pulsesToInches);
+	        	//rightEncoder.setDistancePerPulse(pulsesToInches);
 	    	
 	    	}
 	    
@@ -53,6 +59,14 @@ public class driveTrain extends Subsystem
 	    
 	    public void arcadeDrive(double spe, double ang) {
 	    	jankDrive.arcadeDrive(spe, ang);
+	    }
+	    
+	    public double encoderInfoLeft() {
+	    	return -backLeft.getSensorCollection().getQuadraturePosition() * pulsesToInches;
+	    }
+	    
+	    public double encoderInfoRight() {
+	    	return frontRight.getSensorCollection().getQuadraturePosition() * pulsesToInches;
 	    }
 	    
 	    public double getGyroAngle() {
