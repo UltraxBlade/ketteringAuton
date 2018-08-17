@@ -5,23 +5,16 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class autoAroundSwitch extends CommandGroup {
+public class switch2lap extends CommandGroup {
 
-    public autoAroundSwitch() {
+    public switch2lap() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
+    	addSequential(new autonTurnOnLine());
+    	addSequential(new autoAroundSwitch());
+    	addSequential(new autoAroundSwitch());
         // these will run in order.
-    	
-    	addSequential(new driveStraight(205));
-    	addSequential(new leftTurn(92));
-    	addSequential(new driveStraight(103));
-    	addSequential(new leftTurn(92));
-    	addSequential(new driveStraight(205));
-    	addSequential(new leftTurn(92));
-    	addSequential(new driveStraight(103));
-    	//addSequential(new leftTurn(92));
-    	
 
         // To run multiple commands at the same time,
         // use addParallel()
